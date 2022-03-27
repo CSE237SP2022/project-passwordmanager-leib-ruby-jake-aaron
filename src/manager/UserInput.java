@@ -1,37 +1,73 @@
 package manager;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInput {
 		
-		private Scanner input;
+		private Scanner scanner;
 		
 		public UserInput() {
-			Scanner input = new Scanner(System.in);
+			scanner = new Scanner(System.in);
 		}
 		
+		
 		public int getInteger(String prompt) {
-			System.out.println(prompt);
+			System.out.print(prompt + ": ");
 				
-			if(input.hasNextInt()) {
-				return input.nextInt();
+			if(scanner.hasNextInt()) {
+				System.out.println();
+				return scanner.nextInt();
 			}
-				
 			else {
+				scanner.next();
+				System.out.println();
 				return getInteger(prompt);
 			}
 		}
 		
-		public String getString(String prompt) {
-			System.out.println(prompt);
+		public String getLine(String prompt) {
+			System.out.print(prompt + ": ");
 			
-			if(input.hasNextLine()) {
-				return input.nextLine();
+			if(scanner.hasNextLine()) {
+				System.out.println();
+				return scanner.nextLine();
 			}
 			
 			else {
-				return getString(prompt);
+				scanner.next();
+				System.out.println();
+				return getLine(prompt);
 			}
 		}	
+		
+		public String getString(String prompt) {
+			System.out.print(prompt + ": ");
+			
+			if(scanner.hasNext()) {
+				System.out.println();
+				return scanner.next();
+			}
+			
+			else {
+				try {
+					scanner.next();
+					System.out.println();
+					return getString(prompt);
+				}
+				catch(NoSuchElementException e){
+					System.out.println();
+					return "";
+				}
+			}
+		}	
+		
+		public int getPositiveInteger(String prompt) {
+			int positiveInteger = -1;
+			while(positiveInteger < 1) {
+				positiveInteger = getInteger(prompt);
+			}
+			return positiveInteger;
+		}
 	
 }
