@@ -69,5 +69,13 @@ public class UserInput {
 			}
 			return positiveInteger;
 		}
+		
+		public int getNonnegativeInteger(String prompt) {
+			int nonnegativeInteger = -1;
+			while(nonnegativeInteger < 0) {
+				nonnegativeInteger = getInteger(prompt);
+			}
+			return nonnegativeInteger;
+		}
 	
 }
