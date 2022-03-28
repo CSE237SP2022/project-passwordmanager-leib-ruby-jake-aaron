@@ -7,15 +7,34 @@ public class PasswordRequirements {
 	private int numberOfCapitalLetters;
 	private int numberOfNumbers;
 	private int numberOfSpecialCharacters;
+	private UserInput inputStream;
 	
 	
 	public PasswordRequirements() {
-		UserInput inputStream = new UserInput();
+		inputStream = new UserInput();
 		this.length = 0;
 		this.remainingLength = 0;
 		this.numberOfCapitalLetters = 0;
 		this.numberOfNumbers = 0;
 		this.numberOfSpecialCharacters = 0;
+	}
+	
+	/**
+	 * This non-default constructor is used exclusively by the unit tests
+	 * in order to bypass the use of the UserInput class, allowing for more
+	 * direct testing of this class and PasswordGenerator.
+	 * 
+	 * @param length
+	 * @param numberOfCapitalLetters
+	 * @param numberOfNumbers
+	 * @param numberOfSpecialCharacters
+	 */
+	public PasswordRequirements(int length, int numberOfCapitalLetters, int numberOfNumbers, int numberOfSpecialCharacters) {
+		this.length = length;
+		this.numberOfCapitalLetters = numberOfCapitalLetters;
+		this.numberOfNumbers = numberOfNumbers;
+		this.numberOfSpecialCharacters = numberOfSpecialCharacters;
+		this.remainingLength = this.length  - (this.numberOfCapitalLetters + this.numberOfNumbers + this.numberOfSpecialCharacters);
 	}
 	
 	public int getLength() {
