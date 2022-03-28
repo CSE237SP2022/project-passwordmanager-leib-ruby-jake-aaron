@@ -10,7 +10,8 @@ public class PasswordGenerator {
 	public PasswordGenerator() {
 		password = new StringBuffer();
 		random = new SecureRandom();
-		requirements = new PasswordRequirements().setAllPasswordRequirements();
+		requirements = new PasswordRequirements();
+		this.requirements.setAllPasswordRequirements();
 	}
 	
 	/**
@@ -32,7 +33,7 @@ public class PasswordGenerator {
 	 * Update password with randomly generated characters for each type using the requirements
 	 */
 	public void generatePassword() {
-		password.setLength(requirements.length);
+		password.setLength(requirements.getLength());
 		// fill password with each type and number of character given by requirements 
 		for(int charType = 0; charType < 4; charType++) {
 			int numChars = getNumChars(charType);
@@ -79,14 +80,14 @@ public class PasswordGenerator {
 	private int getNumChars(int charType) {
 		switch(charType) {
 			// 0: capital letters
-			case 0: return requirements.numberOfCapitalLetters;
+			case 0: return requirements.getNumberOfCapitalLetters();
 			// 1: random numbers
-			case 1: return requirements.numberOfNumbers;
+			case 1: return requirements.getNumberOfNumbers();
 			// 2: special characters
-			case 2: return requirements.numberOfSpecialCharacters;
+			case 2: return requirements.getNumberOfSpecialCharacters();
 			// 3: lower case letters
-			case 3: return requirements.remainingLength;
-			default: return requirements.remainingLength;
+			case 3: return requirements.getRemainingLength();
+			default: return requirements.getRemainingLength();
 		}
 	}
 	
