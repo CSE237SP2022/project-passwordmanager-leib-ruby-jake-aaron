@@ -22,7 +22,7 @@ public class PasswordRequirements {
 	/**
 	 * This non-default constructor is used exclusively by the unit tests
 	 * in order to bypass the use of the UserInput class, allowing for more
-	 * direct testing of this class and PasswordGenerator.
+	 * direct testing of PasswordGenerator.
 	 * 
 	 * @param length
 	 * @param numberOfCapitalLetters
@@ -87,7 +87,7 @@ public class PasswordRequirements {
 	}
 	
 	private void setNumberOfCapitalLetters() {
-		this.numberOfCapitalLetters = inputStream.getPositiveInteger("How many capital letters do you want in your password?");
+		this.numberOfCapitalLetters = inputStream.getNonnegativeInteger("How many capital letters do you want in your password?");
 		if(this.numberOfCapitalLetters > this.remainingLength) {
 			System.out.println("Invalid number of capital letters.");
 			printNumberOfRemainingCharacters();
@@ -99,7 +99,7 @@ public class PasswordRequirements {
 	}
 	
 	private void setNumberOfNumbers() {
-		this.numberOfNumbers = inputStream.getPositiveInteger("How many numbers do you want in your password?");
+		this.numberOfNumbers = inputStream.getNonnegativeInteger("How many numbers do you want in your password?");
 		if(this.numberOfNumbers > this.remainingLength) {
 			System.out.println("Invalid number of numbers.");
 			printNumberOfRemainingCharacters();
@@ -110,8 +110,8 @@ public class PasswordRequirements {
 		}
 	}
 	
-	public void setNumberOfSpecialCharacters() {
-		this.numberOfSpecialCharacters = inputStream.getPositiveInteger("How many special characters do you want in your password?");
+	private void setNumberOfSpecialCharacters() {
+		this.numberOfSpecialCharacters = inputStream.getNonnegativeInteger("How many special characters do you want in your password?");
 		if(this.numberOfSpecialCharacters > this.remainingLength) {
 			System.out.println("Invalid number of numbers.");
 			printNumberOfRemainingCharacters();
