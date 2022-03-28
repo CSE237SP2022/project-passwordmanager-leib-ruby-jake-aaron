@@ -4,10 +4,24 @@ import java.security.SecureRandom;
 
 public class PasswordGenerator {
 
+	/**
+	 * Default constructor
+	 */
 	public PasswordGenerator() {
 		password = new StringBuffer();
 		random = new SecureRandom();
 		requirements = new PasswordRequirements().setAllPasswordRequirements();
+	}
+	
+	/**
+	 * Constructor for testing:
+	 * Get requirements as parameter without requiring user input 
+	 * @param reqs 
+	 */
+	public PasswordGenerator(PasswordRequirements reqs) {
+		password = new StringBuffer();
+		random = new SecureRandom();
+		requirements = reqs;
 	}
 
 	private StringBuffer password;
