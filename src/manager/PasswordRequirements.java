@@ -110,7 +110,7 @@ public class PasswordRequirements {
 		}
 	}
 	
-	public void setNumberOfSpecialCharacters() {
+	private void setNumberOfSpecialCharacters() {
 		this.numberOfSpecialCharacters = inputStream.getNonnegativeInteger("How many special characters do you want in your password?");
 		if(this.numberOfSpecialCharacters > this.remainingLength) {
 			System.out.println("Invalid number of numbers.");
