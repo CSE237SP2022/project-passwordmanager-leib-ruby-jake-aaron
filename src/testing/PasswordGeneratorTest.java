@@ -15,7 +15,7 @@ public class PasswordGeneratorTest {
 	private boolean testPassword(PasswordRequirements reqs, PasswordGenerator generator) {
 		
 		generator.generatePassword();
-		String password = generator.toString();
+		String password = generator.getPassword();
 		
 		// length is correct 
 		boolean correctLength = password.length() == reqs.getLength();
