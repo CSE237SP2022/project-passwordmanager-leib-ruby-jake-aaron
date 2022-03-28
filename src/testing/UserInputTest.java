@@ -55,6 +55,18 @@ public class UserInputTest {
 	}
 	
 	@Test
+	public void testGetNonnegativeInteger() {
+		setSystemIn(createInputStream("a -5 0 3"));
+		UserInput input = new UserInput();
+
+		int expectAThree = input.getNonnegativeInteger("Please enter a non-negative integer");
+		
+		assertEquals(0, (int)expectAThree);
+		
+		resetSystemIn();
+	}
+	
+	@Test
 	public void testGetLine() {
 		setSystemIn(createInputStream("a -5 3"));
 		UserInput input = new UserInput();
