@@ -24,15 +24,16 @@ private UserInput inputStream;
 	
 	public boolean checkInput() {
 		
-		int value = this.inputStream.getInt("Select an Integer Option");
+		int value = this.inputStream.getInteger("Select an Integer Option");
 		
 		while (value > 2 ) {
-			value = this.inputStream.getInt("Select a Valid Integer Option");
+			value = this.inputStream.getInteger("Select a Valid Integer Option");
 		}
 		
 		if (value == 1) {
-			PasswordGenerator generator - new PasswordGenerator();
+			PasswordGenerator generator = new PasswordGenerator();
 			generator.generatePassword();
+			System.out.println(generator.getPassword());
 			return true;
 		}
 		
