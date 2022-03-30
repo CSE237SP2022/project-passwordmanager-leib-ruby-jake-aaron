@@ -7,11 +7,12 @@ So far, we have completed the following stories:
 4. A PasswordGenerator should be able to generate a random password based on the inputs from the UserInput class
 5. A PasswordRequirements class should be able to hold that user's password requirements
 6. A UserInput should be able to read in user input from the command line
+7. A user should be able to start the program from the command line using a shell script
 
 We are using a more secure pseudo random number generator than the standard java random number generator class.
 
 For the next iteration, we intend to complete:
-1. A MenuSystem should be able to continue to prompt the user for what they want to do until the user quits the program
+1. A MenuSystem should be able to continue to prompt the user for what they want to do next (i.e., generate another password) until the user quits the program
 2. A user should be able to store passwords
 3. A user should be able to create multiple passwords
 4. A PasswordGenerator should be able to take in words as input to be used in the password
@@ -25,4 +26,4 @@ So far, everything that has been implemented is working.
 2. Navigate to the cloned repository
 3. Ensure that you have "execute" permissions for start_program.sh by running `ls -l`
 4. If you do not have exexute permissions for start_program.sh, run `chmod 744 start_program.sh`
-5. Start the program by running `start_program.sh` in the command line
+5. Start the program by running `./start_program.sh` in the command line
