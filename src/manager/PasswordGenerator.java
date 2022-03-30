@@ -63,7 +63,7 @@ public class PasswordGenerator {
 			// 0: random capital letter from random offset of ascii decimal value
 			case 0: return (char) (random.nextInt(25) + 'A');
 			// 1: random number (from 0 - 9)
-			case 1: return (char) (random.nextInt(9)); 
+			case 1: return (char) (random.nextInt(9) + '0'); 
 			// 2: random special character from random offset of ascii decimal value
 			case 2: return (char) (random.nextInt(14) + '!');
 			// 3: random lower case letter from random offset of ascii decimal value
