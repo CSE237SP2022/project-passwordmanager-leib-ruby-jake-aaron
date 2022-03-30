@@ -11,13 +11,18 @@ So far, we have completed the following stories:
 We are using a more secure pseudo random number generator than the standard java random number generator class.
 
 For the next iteration, we intend to complete:
-1. A user should be able to store passwords
-2. A user should be able to create multiple passwords
-3. A PasswordGenerator should be able to take in words as input to be used in the password
-4. A PasswordStorageSystem should have id's to identify what passwords correspond to
-5. A PasswordStorageSystem should be able to reset passwords
-6. A user should be able to start the program by running a shell script
+1. A MenuSystem should be able to continue to prompt the user for what they want to do until the user quits the program
+2. A user should be able to store passwords
+3. A user should be able to create multiple passwords
+4. A PasswordGenerator should be able to take in words as input to be used in the password
+5. A PasswordStorageSystem should have id's to identify what passwords correspond to
+6. A PasswordStorageSystem should be able to reset passwords
 
+So far, everything that has been implemented is working.
 
-So far, the only non-functional aspect of our program is beginning the script by running a shell script. We intend to fix this in our second iteration.
-As of now the best way to run our program is to clone the repository in Eclipse and run the MenuSystem.java 
+## To run the program
+1. Clone the repository
+2. Navigate to the cloned repository
+3. Ensure that you have "execute" permissions for start_program.sh by running `ls -l`
+4. If you do not have exexute permissions for start_program.sh, run `chmod 744 start_program.sh`
+5. Start the program by running `start_program.sh` in the command line
