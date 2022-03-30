@@ -18,5 +18,5 @@ For the next iteration, we intend to complete:
 6. A user should be able to start the program by running a shell script
 
 
-So far, the only non-functional aspect of our program is beginning the script by running a shell script. We intend to fix this in our second iteration.
-Other than that, user input is taken through the command line.
+So far, the only non-functional aspect of our program is begining the script by running a shell script. We intend to fix this in our second iteration.
+As of now the best way to run our program is to run it through eclipse and run the MenuSystem.java 
