@@ -2,23 +2,22 @@
 
 REPO_DIR=$(pwd)
 
-CD_RESULT=$(cd ./src/manager)
 
-if [[ $CD_RESULT == "" ]]
+javac -d class -sourcepath src src/manager/UserInput.java
+javac -d class -sourcepath src src/manager/PasswordRequirements.java
+javac -d class -sourcepath src src/manager/PasswordGenerator.java
+javac -d class -sourcepath src src/manager/MenuSystem.java
+
+cd class/manager
+
+CHECK_FOR_CLASS=$(ls | grep "MenuSystem.class")
+
+if [[ $CHECK_FOR_CLASS == "MenuSystem.class" ]]
 then
-
-	javac *.java
-
-	CHECK_FOR_CLASS=$(ls | grep "MenuSystem.class")
-
-	if [[$CHECK_FOR_CLASS == "MenuSystem.class" ]]
-	then
-		java MenuSystem
-	else
-		echo "Program did not compile correctly"
-	fi
+	cd $REPO_DIR
+	java -classpath ./class manager.MenuSystem
 else
-	echo "Code directory not found. Repo not properly cloned."
+	echo "Program did not compile correctly"
 fi
 
 
