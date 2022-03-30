@@ -7,6 +7,7 @@ So far, we have completed the following stories:
 4. A PasswordGenerator should be able to generate a random password based on the inputs from the UserInput class
 5. A PasswordRequirements class should be able to hold that user's password requirements
 6. A UserInput should be able to read in user input from the command line
+
 We are using a more secure pseudo random number generator than the standard java random number generator class.
 
 For the next iteration, we intend to complete:
@@ -19,4 +20,4 @@ For the next iteration, we intend to complete:
 
 
 So far, the only non-functional aspect of our program is beginning the script by running a shell script. We intend to fix this in our second iteration.
-As of now the best way to run our program is to run it through eclipse and run the MenuSystem.java 
+As of now the best way to run our program is to clone the repository in Eclipse and run the MenuSystem.java 
