@@ -17,6 +17,7 @@ private UserInput inputStream;
 	}
 	
 	public void showOptions() {
+		System.out.println("Menu:");
 		for(int i=0; i < this.menuOptions.size(); i++){
             System.out.println(this.menuOptions.get(i));
         }
@@ -26,7 +27,7 @@ private UserInput inputStream;
 		
 		int value = this.inputStream.getInteger("Select an Integer Option");
 		
-		while (value > 2 ) {
+		while (value > 2 && value > 0) {
 			value = this.inputStream.getInteger("Select a Valid Integer Option");
 		}
 		
@@ -46,8 +47,11 @@ private UserInput inputStream;
 
 	public static void main(String[] args) {
 		MenuSystem menu = new MenuSystem();
-		menu.showOptions();
-		boolean output = menu.checkInput();
+		boolean output = true;
+		while(output) {
+			menu.showOptions();
+			output = menu.checkInput();
+		}
 	}
 
 }
