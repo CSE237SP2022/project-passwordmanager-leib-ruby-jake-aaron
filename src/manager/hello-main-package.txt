@@ -1,3 +1,0 @@
-hello there! the repo this package is in is for our 237 project
-
-this package will hold all of our functional java classes
