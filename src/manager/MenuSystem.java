@@ -7,13 +7,14 @@ public class MenuSystem {
 	
 private List<String> menuOptions;
 private UserInput inputStream;
+private PasswordGenerator generator;
 
 	public MenuSystem() {
 		this.menuOptions = new ArrayList<String>();
 		this.menuOptions.add("1 Generate Password");
 		this.menuOptions.add("2 Exit");
 		this.inputStream = new UserInput();
-		
+		this.generator = new PasswordGenerator();
 	}
 	
 	public void showOptions() {
@@ -32,7 +33,6 @@ private UserInput inputStream;
 		}
 		
 		if (value == 1) {
-			PasswordGenerator generator = new PasswordGenerator();
 			generator.generatePassword();
 			System.out.println(generator.getPassword());
 			return true;
