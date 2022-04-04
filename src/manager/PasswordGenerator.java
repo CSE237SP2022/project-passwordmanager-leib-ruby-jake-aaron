@@ -10,8 +10,7 @@ public class PasswordGenerator {
 	public PasswordGenerator() {
 		password = new StringBuffer();
 		random = new SecureRandom();
-		requirements = new PasswordRequirements();
-		this.requirements.setAllPasswordRequirements();
+		requirements = null;
 	}
 	
 	/**
@@ -33,6 +32,10 @@ public class PasswordGenerator {
 	 * Update password with randomly generated characters for each type using the requirements
 	 */
 	public void generatePassword() {
+		
+		this.resetBuffer();
+		this.requirements = new PasswordRequirements();
+		this.requirements.setAllPasswordRequirements();
 		password.setLength(requirements.getLength());
 		// fill password with each type and number of character given by requirements 
 		for(int charType = 0; charType < 4; charType++) {
@@ -105,6 +108,11 @@ public class PasswordGenerator {
 				break;
 			}
 		}
+	}
+	
+	
+	private void resetBuffer() {
+		this.password.delete(0, password.length());
 	}
 	
 	/**
