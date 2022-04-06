@@ -35,6 +35,19 @@ public class LoginData {
 		username = "";
 	}
 	
+	/**
+	 * This constructor is used by the PasswordStorageSystem class
+	 * @param key
+	 * @param username
+	 * @param password
+	 */
+	public LoginData(String key, String username, String password) {
+		inputStream = new UserInput();
+		this.password = password;
+		this.key = key;
+		this.username = username;
+	}
+	
 	
 	
 	public void setAllEntryFields() {
