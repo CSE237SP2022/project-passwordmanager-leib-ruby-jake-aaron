@@ -54,7 +54,13 @@ public class PasswordStorageSystem {
 	private HashMap<String, LoginData> parseFile() {
 		
 		HashMap<String, LoginData> loginsMap = new HashMap<String, LoginData>();
-		Scanner scanner = new Scanner(file);
+		Scanner scanner = null;
+		try {
+			scanner = new Scanner(this.storedPasswords);
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// read each line of file 
 		while(scanner.hasNextLine()) {
