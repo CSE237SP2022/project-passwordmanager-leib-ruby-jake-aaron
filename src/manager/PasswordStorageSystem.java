@@ -17,6 +17,20 @@ public class PasswordStorageSystem {
 
 	public PasswordStorageSystem() {
 		this.storedPasswords = new File("../../storedPasswords.txt");
+		createFileIfNotExist();
+		this.printWriter = null;
+		createPrintWriter();
+	}
+	
+	
+	/**
+	 * This constructor is used for testing. It creates a separate file in the testing package
+	 * that is used to read/write to in order to test this class's methods.
+	 * @param file
+	 */
+	public PasswordStorageSystem(String path) {
+		this.storedPasswords = new File(path);
+		createFileIfNotExist();
 		this.printWriter = null;
 		createPrintWriter();
 	}
