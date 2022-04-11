@@ -57,4 +57,36 @@ public class PasswordStorageSystemTest {
 		
 		assertTrue(correctLogin1 && correctLogin2);
 	}
+	
+	/**
+	 * 	The following 3 methods are used to simulate user input in order to test the get password method.
+	 */
+	private ByteArrayInputStream createInputStream(String inputStreamAsString) {
+		return new ByteArrayInputStream(inputStreamAsString.getBytes());
+	}
+	
+	private void setSystemIn(InputStream inputStream) {
+		System.setIn(inputStream);
+	}
+	
+	private void resetSystemIn() {
+		System.setIn(System.in);
+	}
+	
+	@Test 
+	public void testGetPassword() {
+		setSystemIn(createInputStream("yahoo"));
+		
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		String testPassword = "testpass";
+		LoginData testLogin = new LoginData("yahoo", "testuname", testPassword);
+		passwordStorageTest.savePassword(testLogin);
+		String yahooPassword = passwordStorageTest.getPassword();
+		assertEquals(yahooPassword, testPassword);
+	}
+	
+	@AfterAll
+	public void cleanup() {
+		resetSystemIn();
+	}
 }
