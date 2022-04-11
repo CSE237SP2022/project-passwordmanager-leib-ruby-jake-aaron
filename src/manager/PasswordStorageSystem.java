@@ -40,11 +40,7 @@ public class PasswordStorageSystem {
 		String entryToSave = entry.getKey() + " " + entry.getUsername() + " " + entry.getPassword();
 		printWriter.println(entryToSave);
 		printWriter.flush();
-		printWriter.close();
 	}
-	
-	
-	
 	
 	public void createPrintWriter() {
 		try {
@@ -65,7 +61,7 @@ public class PasswordStorageSystem {
 		}
 	}
 	
-	private HashMap<String, LoginData> parseFile() {
+	public HashMap<String, LoginData> parseFile() {
 		
 		HashMap<String, LoginData> loginsMap = new HashMap<String, LoginData>();
 		Scanner scanner = null;
@@ -84,9 +80,9 @@ public class PasswordStorageSystem {
 			String id = curLine.substring(0, firstSpace);
 			// get username substring 
 			int secondSpace = curLine.indexOf(" ", firstSpace+1);
-			String username = curLine.substring(firstSpace, secondSpace);
+			String username = curLine.substring(firstSpace+1, secondSpace);
 			// get password substring 
-			String password = curLine.substring(secondSpace, curLine.length());
+			String password = curLine.substring(secondSpace+1, curLine.length());
 			
 			// add to passwordMap
 			LoginData curLogin = new LoginData(id, username, password);
