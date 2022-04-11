@@ -28,8 +28,8 @@ public class PasswordStorageSystem {
 	 * that is used to read/write to in order to test this class's methods.
 	 * @param file
 	 */
-	public PasswordStorageSystem(File file) {
-		this.storedPasswords = new File("./testingStorageSystem.txt");
+	public PasswordStorageSystem(String path) {
+		this.storedPasswords = new File(path);
 		createFileIfNotExist();
 		this.printWriter = null;
 		createPrintWriter();
