@@ -1,3 +1,5 @@
+
+
 package manager;
 
 import java.util.ArrayList;
@@ -8,13 +10,17 @@ public class MenuSystem {
 private List<String> menuOptions;
 private UserInput inputStream;
 private PasswordGenerator generator;
+private PasswordStorageSystem storageSystem;
 
 	public MenuSystem() {
 		this.menuOptions = new ArrayList<String>();
 		this.menuOptions.add("1 Generate Password");
-		this.menuOptions.add("2 Exit");
+		this.menuOptions.add("2 View Saved Password");
+		this.menuOptions.add("3 Add New Password");
+		this.menuOptions.add("4 Exit");
 		this.inputStream = new UserInput();
 		this.generator = new PasswordGenerator();
+		this.storageSystem = new PasswordStorageSystem();
 	}
 	
 	public void showOptions() {
@@ -28,7 +34,7 @@ private PasswordGenerator generator;
 		
 		int value = this.inputStream.getInteger("Select an Integer Option");
 		
-		while (value > 2 && value > 0) {
+		while (value > 4 || value < 0) {
 			value = this.inputStream.getInteger("Select a Valid Integer Option");
 		}
 		
@@ -38,7 +44,20 @@ private PasswordGenerator generator;
 			return true;
 		}
 		
-		if (value == 2) {
+		if (value ==2) {
+			this.storageSystem.printIDs();
+			System.out.println(this.storageSystem.getPassword());
+		}
+			
+		if (value ==3) {
+			
+			LoginData loginData = new LoginData();
+			loginData.setAllEntryFields();
+			this.storageSystem.savePassword(loginData);
+				return true;
+		}
+		
+		if (value == 4) {
 			return false;
 		}
 		
@@ -55,3 +74,6 @@ private PasswordGenerator generator;
 	}
 
 }
+
+
+
