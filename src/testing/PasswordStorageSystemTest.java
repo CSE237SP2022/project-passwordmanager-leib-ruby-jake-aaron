@@ -30,6 +30,14 @@ public class PasswordStorageSystemTest {
 		}
 	}
 	
+	
+	/**
+	 * This test covers both the PasswordStorageSystem's savePassword() and 
+	 * parseFile() methods. These methods are best tested together because
+	 * in order to test that the file is written to, we have to read the file, and
+	 * to test that a file is properly read, we first have to write the file. So
+	 * this test covers a lot of important ground.
+	 */
 	@Test
 	public void testParseFile() {
 		
@@ -58,8 +66,22 @@ public class PasswordStorageSystemTest {
 		assertTrue(correctLogin1 && correctLogin2);
 	}
 	
+	
+	@Test
+	public void testThatPasswordStorageFileIsCreatedByConstructor() {
+		PasswordStorageSystem storageSystem = new PasswordStorageSystem();
+		File fileToFind = new File("../../storedPasswords.txt");
+		
+		boolean fileDoesExist = fileToFind.exists();
+		
+		assertTrue(fileDoesExist);
+	}
+	
+	
+	
 	/**
-	 * 	The following 3 methods are used to simulate user input in order to test the get password method.
+	 * The following 3 methods are used to simulate user input in order to test various methods of
+	 * the PasswordStorageSystem class.
 	 */
 	private ByteArrayInputStream createInputStream(String inputStreamAsString) {
 		return new ByteArrayInputStream(inputStreamAsString.getBytes());
@@ -69,12 +91,14 @@ public class PasswordStorageSystemTest {
 		System.setIn(inputStream);
 	}
 	
+	
 	private void resetSystemIn() {
 		System.setIn(System.in);
 	}
 	
+	
 	@Test 
-	public void testGetPassword() {
+	public void testGetPasswordGoodInput() {
 		setSystemIn(createInputStream("yahoo"));
 		
 		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
@@ -82,8 +106,52 @@ public class PasswordStorageSystemTest {
 		LoginData testLogin = new LoginData("yahoo", "testuname", testPassword);
 		passwordStorageTest.savePassword(testLogin);
 		String yahooPassword = passwordStorageTest.getPassword();
-		assertEquals(yahooPassword, testPassword);
+		assertEquals(testPassword, yahooPassword);
 	}
+	
+	@Test 
+	public void testGetPasswordNoEntries() {
+		setSystemIn(createInputStream("google"));
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		
+		String shouldBeEmptyString = passwordStorageTest.getPassword();
+		
+		assertEquals("", shouldBeEmptyString);
+	}
+	
+	@Test 
+	public void testGetPasswordCannotFindDesiredPasswordUserQuits() {
+		setSystemIn(createInputStream("yahoo q"));
+		
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		
+		LoginData testLogin = new LoginData("google", "ignore", "ignore");
+		passwordStorageTest.savePassword(testLogin);
+		String shouldBeEmptyString = passwordStorageTest.getPassword();
+		
+		
+		assertEquals("", shouldBeEmptyString);
+	}
+	
+	@Test 
+	public void testGetPasswordEventuallyChoosesValidWebsite() {
+		setSystemIn(createInputStream("yahook! bahoo yahoo"));
+		
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		
+		LoginData testLogin = new LoginData("yahoo", "ignore", "password");
+		passwordStorageTest.savePassword(testLogin);
+		String shouldBeEmptyString = passwordStorageTest.getPassword();
+		
+		
+		assertEquals("password", shouldBeEmptyString);
+	}
+	
+	
+	
+	
+	
+	
 	
 	@AfterAll
 	public void cleanup() {

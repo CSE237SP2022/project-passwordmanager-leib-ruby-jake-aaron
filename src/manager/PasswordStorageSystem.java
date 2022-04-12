@@ -46,7 +46,7 @@ public class PasswordStorageSystem {
 		HashMap<String, LoginData> loginsMap = parseFile();
 		Set<String> idSet = loginsMap.keySet();
 		for (String s : idSet) {
-			System.out.println(s + "\t");
+			System.out.println(s);
 		}
 	}
 
@@ -63,8 +63,8 @@ public class PasswordStorageSystem {
 			System.out.println("Password for " + id + " cannot be found.");
 			System.out.println("Passwords for the following websites have been stored:");
 			printIDs();
-			id = inputStream.getString("What website do you want the password for? Or enter 'q' to quit searching.");
-			if(id == "q") {
+			id = inputStream.getString("What website do you want the password for? Or enter 'q' to quit searching");
+			if(id.equals("q")) {
 				continueSearching = false;
 				return "";
 			}
