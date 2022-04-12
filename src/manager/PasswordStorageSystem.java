@@ -43,21 +43,37 @@ public class PasswordStorageSystem {
 	}
 
 	public void printIDs() {
-		HashMap<String, LoginData> loginsMap = new HashMap<String, LoginData>();
+		HashMap<String, LoginData> loginsMap = parseFile();
 		Set<String> idSet = loginsMap.keySet();
 		for (String s : idSet) {
-			System.out.println(s + "\n");
+			System.out.println(s);
 		}
 	}
 
 	public String getPassword() {
 		HashMap<String, LoginData> loginsMap = parseFile();
+		if(loginsMap.isEmpty()) {
+			System.out.println("There are no passwords stored yet.");
+			return "";
+		}
 		String id = inputStream.getString("What website do you want the password for?");
 		LoginData currentLogin = loginsMap.get(id);
+		boolean continueSearching = true;
+		while (currentLogin == null && continueSearching) {
+			System.out.println("Password for " + id + " cannot be found.");
+			System.out.println("Passwords for the following websites have been stored:");
+			printIDs();
+			id = inputStream.getString("What website do you want the password for? Or enter 'q' to quit searching");
+			if(id.equals("q")) {
+				continueSearching = false;
+				return "";
+			}
+			currentLogin = loginsMap.get(id);
+		}
 		return currentLogin.getPassword();
 	}
 
-	public void createPrintWriter() {
+	private void createPrintWriter() {
 		try {
 			this.printWriter = new PrintWriter(this.storedPasswords);
 		} catch (FileNotFoundException e) {
@@ -65,7 +81,7 @@ public class PasswordStorageSystem {
 		}
 	}
 
-	public void createFileIfNotExist() {
+	private void createFileIfNotExist() {
 		try {
 			storedPasswords.createNewFile();
 		} catch (IOException e) {
