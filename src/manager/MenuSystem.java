@@ -59,16 +59,23 @@ private PasswordStorageSystem storageSystem;
 	private boolean generatePassword() {
 		generator.generatePassword();
 		System.out.println("Your new password is:");
-		System.out.println(generator.getPassword());
-		String userInput = inputStream.getString("Would you like to save this password? Type 'y' or 'n'");
-		System.out.println("User inputed: " + userInput);
+		String password = generator.getPassword();
+		System.out.println(password);
+		
+		saveNewlyGeneratedPassword(password);
+		
 		return true;
 	}
 	
 	private boolean getPassword() {
 		System.out.println("You have passwords saved for the following websites:");
 		this.storageSystem.printIDs();
-		System.out.println(this.storageSystem.getPassword());
+		
+		String password = this.storageSystem.getPassword();
+		if(password.length() > 0) {
+			System.out.println("Password is: " + password + "\n");
+		}
+		
 		return true;
 	}
 	
@@ -77,6 +84,24 @@ private PasswordStorageSystem storageSystem;
 		loginData.setAllEntryFields();
 		this.storageSystem.savePassword(loginData);
 		return true;
+	}
+	
+	private void saveNewlyGeneratedPassword(String password) {
+		String userInput = inputStream.getString("Would you like to save this password? Type 'y' or 'n'");
+		if(userInput.equals("y")) {
+			LoginData newPassword = new LoginData(password);
+			newPassword.setAllEntryFields();
+			this.storageSystem.savePassword(newPassword);
+			System.out.println("Password has been saved!");
+		}
+		else if (userInput.equals("n")) {
+			return;
+		}
+		else {
+			System.out.println("Invalid input!");
+			saveNewlyGeneratedPassword(password);
+		}
+		
 	}
 	
 
