@@ -36,6 +36,8 @@ public class PasswordStorageSystem {
 	public PasswordStorageSystem(File file) {
 		this.storedPasswords = file;
 		createFileIfNotExist();
+		this.fileWriter = null;
+		createFileWriter();
 		this.printWriter = null;
 		createPrintWriter();
 	}
@@ -73,7 +75,7 @@ public class PasswordStorageSystem {
 			}
 			currentLogin = loginsMap.get(id);
 		}
-		return "Password is: " + currentLogin.getPassword() + "\n";
+		return currentLogin.getPassword();
 	}
 
 	
