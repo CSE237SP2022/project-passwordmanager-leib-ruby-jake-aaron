@@ -23,48 +23,62 @@ private PasswordStorageSystem storageSystem;
 		this.storageSystem = new PasswordStorageSystem();
 	}
 	
-	public void showOptions() {
+	private void showOptions() {
 		System.out.println("Menu:");
 		for(int i=0; i < this.menuOptions.size(); i++){
             System.out.println(this.menuOptions.get(i));
         }
 	}
 	
-	public boolean checkInput() {
+	private boolean checkInput() {
 		
 		int value = this.inputStream.getInteger("Select an Integer Option");
 		
-		while (value > 4 || value < 0) {
+		while (value > 4 || value < 1) {
 			value = this.inputStream.getInteger("Select a Valid Integer Option");
 		}
 		
-		if (value == 1) {
-			generator.generatePassword();
-			System.out.println("Your new password is:");
-			System.out.println(generator.getPassword() + "\n");
-			return true;
-		}
 		
+		if (value == 1) {
+			return generatePassword();
+		}
 		else if (value == 2) {
-			System.out.println("You have passwords saved for the following websites:");
-			this.storageSystem.printIDs();
-			System.out.println(this.storageSystem.getPassword());
+			return getPassword();
 		}
 			
 		else if (value == 3) {
-			
-			LoginData loginData = new LoginData();
-			loginData.setAllEntryFields();
-			this.storageSystem.savePassword(loginData);
-				return true;
+			return savePassword();
 		}
-		
-		if (value == 4) {
+		else {
 			return false;
 		}
 		
+	}
+	
+	
+	private boolean generatePassword() {
+		generator.generatePassword();
+		System.out.println("Your new password is:");
+		System.out.println(generator.getPassword());
+		String userInput = inputStream.getString("Would you like to save this password? Type 'y' or 'n'");
+		System.out.println("User inputed: " + userInput);
 		return true;
 	}
+	
+	private boolean getPassword() {
+		System.out.println("You have passwords saved for the following websites:");
+		this.storageSystem.printIDs();
+		System.out.println(this.storageSystem.getPassword());
+		return true;
+	}
+	
+	private boolean savePassword() {
+		LoginData loginData = new LoginData();
+		loginData.setAllEntryFields();
+		this.storageSystem.savePassword(loginData);
+		return true;
+	}
+	
 
 	public static void main(String[] args) {
 		MenuSystem menu = new MenuSystem();
