@@ -11,9 +11,9 @@ public class LoginData {
 	
 	
 	/**
-	 * This constructor is used by PasswordGenerator since there is no need to ask the
-	 * user for the password after we generated it. PasswordGenerator simply passes in
-	 * the password that it just made.
+	 * This constructor is used by MenuSystem since there is no need to ask the
+	 * user for the password after we generated it. MenuSystem, simply passes in
+	 * the password that the generator just made.
 	 * @param password
 	 */
 	public LoginData(String password) {
