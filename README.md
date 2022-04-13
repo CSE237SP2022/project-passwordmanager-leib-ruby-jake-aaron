@@ -1,7 +1,7 @@
 # Password Manager
 This collaborative project is a password manager, written entirely in Java. This is the final project for WUSTL CSE237. 
 
-# Iteration 1
+## Iteration 1
 So far, we have completed the following stories: 
 1. A MenuSystem should be able to output an initial menu to the user, giving them options for what they can do with the program
 2. A UserInput should be able to verify the input of a certain type and reprompt the user if it is not the desired type
@@ -23,7 +23,7 @@ For the next iteration, we intend to complete:
 
 So far, everything that has been implemented is working.
 
-# Iteration 2
+## Iteration 2
 
 In this iteration, we completed the following user stories:
 1. A MenuSystem should give the user the option to see their stored passwords and add passwords directly
