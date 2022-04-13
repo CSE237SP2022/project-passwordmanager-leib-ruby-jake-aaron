@@ -2,6 +2,7 @@ package manager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -13,11 +14,14 @@ public class PasswordStorageSystem {
 
 	private File storedPasswords;
 	private PrintWriter printWriter;
+	private FileWriter fileWriter;
 	private UserInput inputStream = new UserInput();
 
 	public PasswordStorageSystem() {
 		this.storedPasswords = new File("./storedPasswords.txt");
 		createFileIfNotExist();
+		this.fileWriter = null;
+		createFileWriter();
 		this.printWriter = null;
 		createPrintWriter();
 	}
@@ -39,7 +43,6 @@ public class PasswordStorageSystem {
 	public void savePassword(LoginData entry) {
 		String entryToSave = entry.getKey() + " " + entry.getUsername() + " " + entry.getPassword();
 		printWriter.println(entryToSave);
-		printWriter.flush();
 	}
 
 	public void printIDs() {
@@ -73,18 +76,33 @@ public class PasswordStorageSystem {
 		return currentLogin.getPassword();
 	}
 
-	private void createPrintWriter() {
+	
+	
+	private void createFileWriter() {
 		try {
-			this.printWriter = new PrintWriter(this.storedPasswords);
-		} catch (FileNotFoundException e) {
+			this.fileWriter = new FileWriter(this.storedPasswords, true);
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
+	} 
+	
+	private void createPrintWriter() {
+		this.printWriter = new PrintWriter(this.fileWriter, true);
 	}
+		
+		
 
 	private void createFileIfNotExist() {
 		try {
-			storedPasswords.createNewFile();
-		} catch (IOException e) {
+			if (storedPasswords.exists()) {
+				return;
+			}
+			else {
+				storedPasswords.createNewFile();
+			}
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
