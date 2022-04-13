@@ -1,5 +1,7 @@
 # Password Manager
 This collaborative project is a password manager, written entirely in Java. This is the final project for WUSTL CSE237. 
+
+# Iteration 1
 So far, we have completed the following stories: 
 1. A MenuSystem should be able to output an initial menu to the user, giving them options for what they can do with the program
 2. A UserInput should be able to verify the input of a certain type and reprompt the user if it is not the desired type
@@ -20,6 +22,26 @@ For the next iteration, we intend to complete:
 6. A PasswordStorageSystem should be able to reset passwords
 
 So far, everything that has been implemented is working.
+
+# Iteration 2
+
+In this iteration, we completed the following user stories:
+1. A MenuSystem should give the user the option to see their stored passwords and add passwords directly
+2. A PasswordGenerator should ask the user if they want to save the password that they just generated
+3. A PasswordStorageSystem should be able to print list of saved password IDs
+4. A MenuSystem should create an instance of a PasswordStorageSystem in its constructor
+5. A PasswordStorageSystem should be able to save created passwords in a file
+6. A PasswordStorageSystem should be able to read passwords from a properly formatted password file
+7. A user should be able to save a password and retrieve a password from the menu
+
+For the next iteration, we intend to complete:
+1. A PasswordGenerator should be able to take in words as input to be used in the password
+2. A PasswordRequirements should be able to ask a user if they want specific words to be part of their password and capture that input
+3. A PasswordStorageSystem should be able to handle upper/lowercase keys when storing/looking up LoginData entries
+4. A PasswordGenerator should be able to gather keywords so that it can generate themed passwords
+5. A PasswordStorageSystem should be able to handle multiple passwords for the same website, using username to differentiate
+
+At the end of this iteration, everything we have implemented is working. Instructions to run the code are below. 
 
 ## To run the program
 1. Clone the repository
