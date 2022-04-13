@@ -33,6 +33,7 @@ In this iteration, we completed the following user stories:
 5. A PasswordStorageSystem should be able to save created passwords in a file
 6. A PasswordStorageSystem should be able to read passwords from a properly formatted password file
 7. A user should be able to save a password and retrieve a password from the menu
+8. A MenuSystem should be able to continue asking the user for what they want to do until the user quits the program
 
 For the next iteration, we intend to complete:
 1. A PasswordGenerator should be able to take in words as input to be used in the password
