@@ -73,7 +73,7 @@ public class PasswordStorageSystem {
 			}
 			currentLogin = loginsMap.get(id);
 		}
-		return currentLogin.getPassword();
+		return "Password is: " + currentLogin.getPassword() + "\n";
 	}
 
 	
