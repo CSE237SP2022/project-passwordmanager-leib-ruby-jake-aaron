@@ -13,16 +13,6 @@ public class PasswordGenerator {
 		requirements = null;
 	}
 	
-	/**
-	 * Constructor for testing:
-	 * Get requirements as parameter without requiring user input 
-	 * @param reqs 
-	 */
-	public PasswordGenerator(PasswordRequirements reqs) {
-		password = new StringBuffer();
-		random = new SecureRandom();
-		requirements = reqs;
-	}
 
 	private StringBuffer password;
 	private SecureRandom random;
@@ -36,6 +26,21 @@ public class PasswordGenerator {
 		this.resetBuffer();
 		this.requirements = new PasswordRequirements();
 		this.requirements.setAllPasswordRequirements();
+		password.setLength(requirements.getLength());
+		// fill password with each type and number of character given by requirements 
+		for(int charType = 0; charType < 4; charType++) {
+			int numChars = getNumChars(charType);
+			replaceNewChars(numChars, charType);
+		}
+	}
+	
+	/**
+	 * This version of this method is solely used for testing so that we can bypass UserInput class.
+	 */
+	public void generatePassword(PasswordRequirements reqs) {
+		
+		this.resetBuffer();
+		this.requirements = reqs;
 		password.setLength(requirements.getLength());
 		// fill password with each type and number of character given by requirements 
 		for(int charType = 0; charType < 4; charType++) {
