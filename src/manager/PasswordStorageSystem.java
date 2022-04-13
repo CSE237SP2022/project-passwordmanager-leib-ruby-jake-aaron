@@ -16,7 +16,7 @@ public class PasswordStorageSystem {
 	private UserInput inputStream = new UserInput();
 
 	public PasswordStorageSystem() {
-		this.storedPasswords = new File("../../storedPasswords.txt");
+		this.storedPasswords = new File("./storedPasswords.txt");
 		createFileIfNotExist();
 		this.printWriter = null;
 		createPrintWriter();
