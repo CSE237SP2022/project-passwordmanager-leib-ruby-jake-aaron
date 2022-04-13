@@ -96,8 +96,6 @@ public class PasswordStorageSystem {
 	private void createFileIfNotExist() {
 		try {
 			if (storedPasswords.exists()) {
-				System.out.println("found the old file! contents is: ");
-				printIDs();
 				return;
 			}
 			else {
