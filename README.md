@@ -1,5 +1,5 @@
 # Password Manager
-This collaborative project is a password manager, written entirely in Java. This is the final project for WUSTL CSE237. 
+This collaborative project is a password manager, written entirely in Java. This is the final project for WUSTL CSE237. The manager allows user to generate passwords, store existing passwords, and access their passwords. Passwords are stored in a file called `storedPasswords.txt` that is created on the users' machine. This allows each user to have their own set of passwords and creates a persistent "database" for accessing passwords through the program at any time.
 
 ## Iteration 1
 So far, we have completed the following stories: 
@@ -41,6 +41,7 @@ For the next iteration, we intend to complete:
 3. A PasswordStorageSystem should be able to handle upper/lowercase keys when storing/looking up LoginData entries
 4. A PasswordGenerator should be able to gather keywords so that it can generate themed passwords
 5. A PasswordStorageSystem should be able to handle multiple passwords for the same website, using username to differentiate
+6. A shell script should check if the compiled class files already exist so it does not recompile all the code every time the program is run
 
 At the end of this iteration, everything we have implemented is working. Instructions to run the code are below. 
 
