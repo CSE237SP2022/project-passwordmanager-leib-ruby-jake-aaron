@@ -15,8 +15,8 @@ private PasswordStorageSystem storageSystem;
 	public MenuSystem() {
 		this.menuOptions = new ArrayList<String>();
 		this.menuOptions.add("1 Generate Password");
-		this.menuOptions.add("2 View Saved Password");
-		this.menuOptions.add("3 Add New Password");
+		this.menuOptions.add("2 View Saved Passwords");
+		this.menuOptions.add("3 Save New Password");
 		this.menuOptions.add("4 Exit");
 		this.inputStream = new UserInput();
 		this.generator = new PasswordGenerator();
@@ -40,16 +40,18 @@ private PasswordStorageSystem storageSystem;
 		
 		if (value == 1) {
 			generator.generatePassword();
-			System.out.println(generator.getPassword());
+			System.out.println("Your new password is:");
+			System.out.println(generator.getPassword() + "\n");
 			return true;
 		}
 		
-		if (value ==2) {
+		else if (value == 2) {
+			System.out.println("You have passwords saved for the following websites:");
 			this.storageSystem.printIDs();
 			System.out.println(this.storageSystem.getPassword());
 		}
 			
-		if (value ==3) {
+		else if (value == 3) {
 			
 			LoginData loginData = new LoginData();
 			loginData.setAllEntryFields();
