@@ -14,7 +14,7 @@ public class PasswordGeneratorTest {
 	
 	private boolean testPassword(PasswordRequirements reqs, PasswordGenerator generator) {
 		
-		generator.generatePassword();
+		generator.generatePassword(reqs);
 		String password = generator.getPassword();
 		
 		// length is correct 
@@ -52,7 +52,7 @@ public class PasswordGeneratorTest {
 	public void test9Length2Capital3Numbers0Special() {
 	
 		PasswordRequirements reqs = new PasswordRequirements(9, 2, 3, 0);
-		PasswordGenerator generator = new PasswordGenerator(reqs);
+		PasswordGenerator generator = new PasswordGenerator();
 		boolean passwordCorrect = testPassword(reqs, generator);
 		
 		assertTrue(passwordCorrect);
@@ -62,7 +62,7 @@ public class PasswordGeneratorTest {
 	public void test11Length4Capital5Numbers2Special() {
 	
 		PasswordRequirements reqs = new PasswordRequirements(11, 4, 5, 2);
-		PasswordGenerator generator = new PasswordGenerator(reqs);
+		PasswordGenerator generator = new PasswordGenerator();
 		boolean passwordCorrect = testPassword(reqs, generator);
 		
 		assertTrue(passwordCorrect);
@@ -72,7 +72,7 @@ public class PasswordGeneratorTest {
 	public void test7Length1Capital2Numbers1Special() {
 	
 		PasswordRequirements reqs = new PasswordRequirements(7, 1, 2, 1);
-		PasswordGenerator generator = new PasswordGenerator(reqs);
+		PasswordGenerator generator = new PasswordGenerator();
 		boolean passwordCorrect = testPassword(reqs, generator);
 		
 		assertTrue(passwordCorrect);
@@ -82,7 +82,7 @@ public class PasswordGeneratorTest {
 	public void test50Length7Capital9Numbers8Special() {
 	
 		PasswordRequirements reqs = new PasswordRequirements(50, 7, 9, 8);
-		PasswordGenerator generator = new PasswordGenerator(reqs);
+		PasswordGenerator generator = new PasswordGenerator();
 		boolean passwordCorrect = testPassword(reqs, generator);
 		
 		assertTrue(passwordCorrect);
