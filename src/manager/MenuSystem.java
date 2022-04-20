@@ -17,7 +17,8 @@ private PasswordStorageSystem storageSystem;
 		this.menuOptions.add("1 Generate Password");
 		this.menuOptions.add("2 View Saved Passwords");
 		this.menuOptions.add("3 Save New Password");
-		this.menuOptions.add("4 Exit");
+		this.menuOptions.add("4 Evaluate Password");
+		this.menuOptions.add("5 Exit");
 		this.inputStream = new UserInput();
 		this.generator = new PasswordGenerator();
 		this.storageSystem = new PasswordStorageSystem();
@@ -34,7 +35,7 @@ private PasswordStorageSystem storageSystem;
 		
 		int value = this.inputStream.getInteger("Select an Integer Option");
 		
-		while (value > 4 || value < 1) {
+		while (value > 5 || value < 1) {
 			value = this.inputStream.getInteger("Select a Valid Integer Option");
 		}
 		
@@ -49,6 +50,14 @@ private PasswordStorageSystem storageSystem;
 		else if (value == 3) {
 			return savePassword();
 		}
+		
+		else if (value ==4) {
+			System.out.println("Available Passwords:");
+			storageSystem.printIDs();
+			PasswordEvaluator evaluator = new PasswordEvaluator(storageSystem);
+			return evaluator.evaluatePassword();
+			}
+
 		else {
 			return false;
 		}
