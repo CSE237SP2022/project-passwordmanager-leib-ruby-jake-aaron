@@ -104,8 +104,9 @@ public class PasswordStorageSystem {
 	}
 	
 	private void clearFile() {
+		// "./storedPasswords.txt"
 		try {
-			new FileOutputStream("./storedPasswords.txt").close();
+			new FileOutputStream(this.storedPasswords).close();
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

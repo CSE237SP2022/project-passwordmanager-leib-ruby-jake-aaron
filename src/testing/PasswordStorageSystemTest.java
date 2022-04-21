@@ -70,8 +70,7 @@ public class PasswordStorageSystemTest {
 	@Test
 	public void testThatPasswordStorageFileIsCreatedByConstructor() {
 		PasswordStorageSystem storageSystem = new PasswordStorageSystem();
-		File fileToFind = new File("../../storedPasswords.txt");
-		
+		File fileToFind = new File("./storedPasswords.txt");
 		boolean fileDoesExist = fileToFind.exists();
 		
 		assertTrue(fileDoesExist);
@@ -105,7 +104,7 @@ public class PasswordStorageSystemTest {
 		String testPassword = "testpass";
 		LoginData testLogin = new LoginData("yahoo", "testuname", testPassword);
 		passwordStorageTest.savePassword(testLogin);
-		String yahooPassword = passwordStorageTest.getPassword();
+		String yahooPassword = passwordStorageTest.accessLogin("").getPassword();
 		assertEquals(testPassword, yahooPassword);
 	}
 	
@@ -114,9 +113,9 @@ public class PasswordStorageSystemTest {
 		setSystemIn(createInputStream("google"));
 		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
 		
-		String shouldBeEmptyString = passwordStorageTest.getPassword();
-		
-		assertEquals("", shouldBeEmptyString);
+		LoginData shouldBeEmpty = passwordStorageTest.accessLogin("");
+	
+		assertEquals(null, shouldBeEmpty);
 	}
 	
 	@Test 
@@ -127,10 +126,10 @@ public class PasswordStorageSystemTest {
 		
 		LoginData testLogin = new LoginData("google", "ignore", "ignore");
 		passwordStorageTest.savePassword(testLogin);
-		String shouldBeEmptyString = passwordStorageTest.getPassword();
+		LoginData shouldBeEmpty = passwordStorageTest.accessLogin("");
 		
 		
-		assertEquals("", shouldBeEmptyString);
+		assertEquals(null, shouldBeEmpty);
 	}
 	
 	@Test 
@@ -141,17 +140,41 @@ public class PasswordStorageSystemTest {
 		
 		LoginData testLogin = new LoginData("yahoo", "ignore", "password");
 		passwordStorageTest.savePassword(testLogin);
-		String shouldBeEmptyString = passwordStorageTest.getPassword();
+		String shouldBeEmptyString = passwordStorageTest.accessLogin("").getPassword();
 		
 		
 		assertEquals("password", shouldBeEmptyString);
 	}
 	
+	@Test 
+	public void testChangePassword() {
+		setSystemIn(createInputStream("yahoo"));
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		String oldPassword = "oldtestpass";
+		LoginData oldTestLogin = new LoginData("yahoo", "testuname", oldPassword);
+		passwordStorageTest.savePassword(oldTestLogin);
+		String newPassword = "newtestpass";
+		LoginData newTestLogin = new LoginData("yahoo", "testuname", newPassword);
+		passwordStorageTest.editLogin(oldTestLogin, newTestLogin);
+		String storedPassword = passwordStorageTest.accessLogin("").getPassword();
+		
+		assertEquals(storedPassword, newPassword);
+	}
 	
-	
-	
-	
-	
+	@Test 
+	public void testDeletePassword() {
+		
+		setSystemIn(createInputStream("yahoo q"));
+		PasswordStorageSystem passwordStorageTest = new PasswordStorageSystem(testFile); 
+		LoginData testLogin1 = new LoginData("google", "testuname", "testpass");
+		passwordStorageTest.savePassword(testLogin1);
+		LoginData testLogin2 = new LoginData("yahoo", "testuname", "testpass");
+		passwordStorageTest.savePassword(testLogin2);
+		passwordStorageTest.removeLogin(testLogin2.getKey());
+		LoginData storedLogin = passwordStorageTest.accessLogin("");
+		
+		assertEquals(null, storedLogin);
+	}
 	
 	@AfterAll
 	public void cleanup() {
