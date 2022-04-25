@@ -27,6 +27,7 @@ public class PasswordGenerator {
 		this.requirements = new PasswordRequirements();
 		this.requirements.setAllPasswordRequirements();
 		password.setLength(requirements.getLength());
+		insertSpecialString();
 		// fill password with each type and number of character given by requirements 
 		for(int charType = 0; charType < 4; charType++) {
 			int numChars = getNumChars(charType);
@@ -42,6 +43,7 @@ public class PasswordGenerator {
 		this.resetBuffer();
 		this.requirements = reqs;
 		password.setLength(requirements.getLength());
+		insertSpecialString();
 		// fill password with each type and number of character given by requirements 
 		for(int charType = 0; charType < 4; charType++) {
 			int numChars = getNumChars(charType);
@@ -112,6 +114,22 @@ public class PasswordGenerator {
 				password.setCharAt(randIndex, newChar);
 				break;
 			}
+		}
+	}
+	
+	private void insertSpecialString() {
+		String specialString = this.requirements.getSpecialString();
+		int lengthOfSpecialString = specialString.length();
+		int spaceRemainingInBuffer = password.length() - lengthOfSpecialString;
+		if(lengthOfSpecialString > 0) {
+			if(spaceRemainingInBuffer > 0) {
+				int position = random.nextInt(spaceRemainingInBuffer);
+				password.insert(position, specialString);
+			}
+			else {
+				password.insert(0, specialString);
+			}
+			password.setLength(requirements.getLength());
 		}
 	}
 	

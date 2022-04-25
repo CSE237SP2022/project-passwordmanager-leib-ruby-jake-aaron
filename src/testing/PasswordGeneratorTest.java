@@ -17,15 +17,47 @@ public class PasswordGeneratorTest {
 		generator.generatePassword(reqs);
 		String password = generator.getPassword();
 		
-		// length is correct 
 		boolean correctLength = password.length() == reqs.getLength();
 		
-		// iterate through password string and verify number of capital letters, numbers, special characters present using ascii values
+		String specialString = reqs.getSpecialString();
+		boolean hasCorrectSpecialStringInPassword = false;
+		boolean hasSpecialStringInPassword = false;
+		if(specialString.length() > 0) {
+			hasSpecialStringInPassword = true;
+			hasCorrectSpecialStringInPassword = testSpecialStringInPassword(password, specialString);
+			if(hasCorrectSpecialStringInPassword) {
+				// we remove the special string to test the rest of the password as if special string was never there
+				password = password.replace(specialString, "");
+			}
+		}
+		
+		boolean allCharsMatch = testNonSpecialStringInPassword(password, reqs);
+		boolean passwordCorrect = allCharsMatch && correctLength;
+		
+		if(hasSpecialStringInPassword) {
+			passwordCorrect = passwordCorrect && hasCorrectSpecialStringInPassword;
+		}
+		
+		return passwordCorrect;
+	}
+	
+	private boolean testSpecialStringInPassword(String oldPassword, String specialString) {
+		for(int i = 0; i < oldPassword.length() - specialString.length(); ++i) {
+			if(oldPassword.substring(i, i + specialString.length()).equals(specialString)) {
+				return true;
+			}
+		}
+		if(specialString.length() == oldPassword.length() && oldPassword.equals(specialString)) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean testNonSpecialStringInPassword(String password, PasswordRequirements reqs) {
 		int countCapitalLetters = 0, countNumbers = 0, countSpecial = 0, countLowercase = 0;
 		for(int i = 0; i < password.length(); i++) {
 			char curCharacter = password.charAt(i);
 			int asciiValue = curCharacter;
-			// char is a number
 			if(asciiValue >= 48 && asciiValue <= 57) {
 				countNumbers++;
 			} else if(asciiValue >= 33 && asciiValue <= 47) {
@@ -37,15 +69,12 @@ public class PasswordGeneratorTest {
 			} 
 		}
 		
-		// test counts
 		boolean correctNumbers = countNumbers == reqs.getNumberOfNumbers();
 		boolean correctSpecial = countSpecial == reqs.getNumberOfSpecialCharacters();
 		boolean correctCapital = countCapitalLetters == reqs.getNumberOfCapitalLetters();
 		boolean correctLowercase = countLowercase == reqs.getRemainingLength();
 		
-		boolean passwordCorrect = correctLength && correctNumbers && correctSpecial && correctCapital && correctLowercase; 
-		
-		return passwordCorrect;
+		return correctNumbers && correctSpecial && correctCapital && correctLowercase;
 	}
 	
 	@Test
@@ -82,6 +111,66 @@ public class PasswordGeneratorTest {
 	public void test50Length7Capital9Numbers8Special() {
 	
 		PasswordRequirements reqs = new PasswordRequirements(50, 7, 9, 8, "");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test10LengthAllSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(10, 0, 0, 0, "thisistens");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test10LengthSmallSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(10, 0, 0, 0, "hi");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test100LengthLargeSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(100, 2, 3, 4, "hi.my.name.is.franklin");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test10LengthWith9LengthSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(10, 0, 0, 1, "abcdefghi");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test50LengthWithSpecialCharsSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(50, 0, 0, 0, ".!?....!!!$#");
+		PasswordGenerator generator = new PasswordGenerator();
+		boolean passwordCorrect = testPassword(reqs, generator);
+		
+		assertTrue(passwordCorrect);
+	}
+	
+	@Test
+	public void test1LengthWithSpecialString() {
+	
+		PasswordRequirements reqs = new PasswordRequirements(1, 0, 0, 0, "!");
 		PasswordGenerator generator = new PasswordGenerator();
 		boolean passwordCorrect = testPassword(reqs, generator);
 		
