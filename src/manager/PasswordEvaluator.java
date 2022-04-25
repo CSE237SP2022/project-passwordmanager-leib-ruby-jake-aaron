@@ -13,6 +13,10 @@ public class PasswordEvaluator {
 		this.password = storageSystem.getPassword();
 	}
 	
+	public PasswordEvaluator(String password) {
+		this.password = password;
+	}
+	
 	public boolean evaluatePassword() {
 		
 		int points = this.password.length();
