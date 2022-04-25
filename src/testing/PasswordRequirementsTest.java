@@ -60,7 +60,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testPasswordRequirementsGivenInput() {
-		setSystemIn(createInputStream("10 5 3 2"));
+		setSystemIn(createInputStream("10 0 5 3 2"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
@@ -79,7 +79,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testPasswordRequirementsGivenThatExceedsLength() {
-		setSystemIn(createInputStream("10 5 5 5"));
+		setSystemIn(createInputStream("10 0 5 5 5"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
@@ -98,7 +98,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testPasswordRequirementsGivenBadInputs() {
-		setSystemIn(createInputStream("the words are bad input 10 , but 3 the program should 2 find the numbers here 0"));
+		setSystemIn(createInputStream("the words are bad input 10 0 , but 3 the program should 2 find the numbers here 0"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
@@ -118,7 +118,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testNumberOfRemainingCharactersAfterUsingAllCharacters() {
-		setSystemIn(createInputStream("10 5 3 2"));
+		setSystemIn(createInputStream("10 0 5 3 2"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
@@ -130,7 +130,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testNumberOfRemainingCharactersAfterUsingNoCharacters() {
-		setSystemIn(createInputStream("10 0 0 0"));
+		setSystemIn(createInputStream("10 0 0 0 0"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
@@ -142,7 +142,7 @@ public class PasswordRequirementsTest {
 	
 	@Test
 	public void testNumberOfRemainingCharactersAfterUsingSomeCharacters() {
-		setSystemIn(createInputStream("10 2 1 2"));
+		setSystemIn(createInputStream("10 0 2 1 2"));
 		PasswordRequirements requirements = new PasswordRequirements();
 		requirements.setAllPasswordRequirements();
 		
