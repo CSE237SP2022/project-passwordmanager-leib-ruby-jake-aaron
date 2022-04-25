@@ -2,6 +2,7 @@ package manager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,30 +56,62 @@ public class PasswordStorageSystem {
 		}
 	}
 
-	public String getPassword() {
+	public LoginData accessLogin(String operationInsertString) {
+		System.out.println("You have passwords saved for the following websites:");
+		this.printIDs();
+		
 		HashMap<String, LoginData> loginsMap = parseFile();
 		if(loginsMap.isEmpty()) {
-			System.out.println("There are no passwords stored yet.");
-			return "";
+			System.out.println("There are no passwords stored yet. \n");
+			return null;
 		}
-		String id = inputStream.getString("What website do you want the password for?");
+		
+		String id = inputStream.getString("What website do you want" + operationInsertString + " the password for?");
 		LoginData currentLogin = loginsMap.get(id);
 		boolean continueSearching = true;
 		while (currentLogin == null && continueSearching) {
 			System.out.println("Password for " + id + " cannot be found.");
 			System.out.println("Passwords for the following websites have been stored:");
 			printIDs();
-			id = inputStream.getString("What website do you want the password for? Or enter 'q' to quit searching");
+			id = inputStream.getString("What website do you want" + operationInsertString + " the password for? Or enter 'q' to quit searching");
 			if(id.equals("q")) {
 				continueSearching = false;
-				return "";
+				return null;
 			}
 			currentLogin = loginsMap.get(id);
 		}
-		return currentLogin.getPassword();
+		return currentLogin;
 	}
-
 	
+	public void editLogin(LoginData oldLogin, LoginData newLogin) {
+		HashMap<String, LoginData> loginsMap = parseFile();
+		loginsMap.put(oldLogin.getKey(), newLogin);
+		replaceFile(loginsMap);
+	}
+	
+	public void removeLogin(String id) {
+		HashMap<String, LoginData> loginsMap = parseFile();
+		loginsMap.remove(id);
+		replaceFile(loginsMap);
+	}
+	
+	// replace file with new map of logins
+	public void replaceFile(HashMap<String, LoginData> loginsMap) {
+		clearFile();
+		for(LoginData curLogin: loginsMap.values()) {
+			savePassword(curLogin);
+		}
+	}
+	
+	private void clearFile() {
+		// "./storedPasswords.txt"
+		try {
+			new FileOutputStream(this.storedPasswords).close();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void createFileWriter() {
 		try {
@@ -93,7 +126,7 @@ public class PasswordStorageSystem {
 		this.printWriter = new PrintWriter(this.fileWriter, true);
 	}
 		
-		
+	
 
 	private void createFileIfNotExist() {
 		try {

@@ -10,7 +10,7 @@ public class PasswordEvaluator {
 	
 	public PasswordEvaluator(PasswordStorageSystem system) {
 		this.storageSystem = system;
-		this.password = storageSystem.getPassword();
+		this.password = storageSystem.accessLogin(" to evaluate").getPassword();
 	}
 	
 	public PasswordEvaluator(String password) {
