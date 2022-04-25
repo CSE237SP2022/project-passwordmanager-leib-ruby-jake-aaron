@@ -1,5 +1,4 @@
 package manager;
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,16 +9,33 @@ public class PasswordEvaluator {
 	
 	public PasswordEvaluator(PasswordStorageSystem system) {
 		this.storageSystem = system;
-		this.password = storageSystem.accessLogin(" to evaluate").getPassword();
+		this.password = "";
+
 	}
 	
-	public boolean evaluatePassword() {
+	public PasswordEvaluator(String password) {
+		this.storageSystem = null;
+		this.password = password;
+	}
+	
+	public String evaluatePassword() {
+		
+		if(this.storageSystem != null) {
+			LoginData login = storageSystem.accessLogin(" to evaluate");
+			if (login != null) {
+				this.password = login.getPassword();
+			}
+			else {
+				this.password = "";
+			}
+		}
+
 		
 		int points = this.password.length();
 		
 		if (points == 0) {
-			System.out.println("No Password was Evaluated");
-			return true;
+			return("No Password was Evaluated");
+			
 		}
 		
 		if (this.password.matches(".*[0-9].*")) {
@@ -30,24 +46,19 @@ public class PasswordEvaluator {
 			points = points + 2;
 		}
 		
-		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(this.password);
-		boolean b = m.find();
-		
-		if (b) {
+		if (containsSpecialChar(this.password)) {
 			points = points +2;
 		}
 		
 		
 		if (points < 8) {
-			System.out.println("Password Strength: Weak");
+			return("Password Strength: Weak");
 		}
 		if (points < 12) {
-			System.out.println("Password Strength: Medium");
+			return("Password Strength: Medium");
 		}
 		
-		System.out.println("Password Strength: Strong");
-		return true;
+		return("Password Strength: Strong");
 	}
 	
 	
@@ -58,5 +69,12 @@ public class PasswordEvaluator {
 		    }
 		  }
 		  return false;
-		}
+	}
+	
+	public boolean containsSpecialChar(String password) {
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(password);
+		boolean b = m.find();
+		return b;
+	}
 }
