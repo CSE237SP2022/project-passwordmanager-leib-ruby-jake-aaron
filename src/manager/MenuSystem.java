@@ -11,6 +11,7 @@ private List<String> menuOptions;
 private UserInput inputStream;
 private PasswordGenerator generator;
 private PasswordStorageSystem storageSystem;
+private PasswordEvaluator evaluator;
 
 	public MenuSystem() {
 		this.menuOptions = new ArrayList<String>();
@@ -24,6 +25,7 @@ private PasswordStorageSystem storageSystem;
 		this.inputStream = new UserInput();
 		this.generator = new PasswordGenerator();
 		this.storageSystem = new PasswordStorageSystem();
+		this.evaluator = new PasswordEvaluator(storageSystem);
 	}
 	
 	private void showOptions() {
@@ -54,10 +56,7 @@ private PasswordStorageSystem storageSystem;
 		}
 		
 		else if (value ==4) {
-			System.out.println("Available Passwords:");
-			storageSystem.printIDs();
-			PasswordEvaluator evaluator = new PasswordEvaluator(storageSystem);
-			return evaluator.evaluatePassword();
+				return evaluateSinglePassword();
 			}
 		else if (value == 5) {
 			return changePassword();
@@ -69,6 +68,11 @@ private PasswordStorageSystem storageSystem;
 			return false;
 		}
 		
+	}
+	
+	private boolean evaluateSinglePassword() {
+		System.out.println(evaluator.evaluatePassword());
+		return true;
 	}
 	
 	
