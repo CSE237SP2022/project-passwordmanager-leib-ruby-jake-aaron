@@ -7,6 +7,7 @@ public class PasswordRequirements {
 	private int numberOfCapitalLetters;
 	private int numberOfNumbers;
 	private int numberOfSpecialCharacters;
+	private String specialString;
 	private UserInput inputStream;
 	
 	
@@ -17,6 +18,7 @@ public class PasswordRequirements {
 		this.numberOfCapitalLetters = 0;
 		this.numberOfNumbers = 0;
 		this.numberOfSpecialCharacters = 0;
+		this.specialString = "";
 	}
 	
 	/**
@@ -29,12 +31,13 @@ public class PasswordRequirements {
 	 * @param numberOfNumbers
 	 * @param numberOfSpecialCharacters
 	 */
-	public PasswordRequirements(int length, int numberOfCapitalLetters, int numberOfNumbers, int numberOfSpecialCharacters) {
+	public PasswordRequirements(int length, int numberOfCapitalLetters, int numberOfNumbers, int numberOfSpecialCharacters, String specialString) {
 		this.length = length;
 		this.numberOfCapitalLetters = numberOfCapitalLetters;
 		this.numberOfNumbers = numberOfNumbers;
 		this.numberOfSpecialCharacters = numberOfSpecialCharacters;
-		this.remainingLength = this.length  - (this.numberOfCapitalLetters + this.numberOfNumbers + this.numberOfSpecialCharacters);
+		this.specialString = specialString;
+		this.remainingLength = this.length  - (this.numberOfCapitalLetters + this.numberOfNumbers + this.numberOfSpecialCharacters + this.specialString.length());
 	}
 	
 	public int getLength() {
@@ -52,6 +55,9 @@ public class PasswordRequirements {
 	public int getNumberOfSpecialCharacters() {
 		return this.numberOfSpecialCharacters;
 	}
+	public String getSpecialString() {
+		return this.specialString;
+	}
 	
 	private boolean haveRemainingCharacters() {
 		return this.remainingLength > 0;
@@ -64,8 +70,16 @@ public class PasswordRequirements {
 	public void setAllPasswordRequirements() {
 		setLength();
 		this.remainingLength = this.length;
+		
 		printNumberOfRemainingCharacters();
-		setNumberOfCapitalLetters();
+		setSpecialString();
+		if(haveRemainingCharacters()) {
+			printNumberOfRemainingCharacters();
+			setNumberOfCapitalLetters();
+		}
+		else {
+			return;
+		}
 		if(haveRemainingCharacters()) {
 			printNumberOfRemainingCharacters();
 			setNumberOfNumbers();
@@ -84,6 +98,22 @@ public class PasswordRequirements {
 	
 	private void setLength() {
 		this.length = inputStream.getPositiveInteger("How long do you want your password to be?");
+	}
+	
+	private void setSpecialString() {
+		this.specialString = inputStream.getString("Insert a special string that you want to appear in your password, or enter '0' to continue");
+		if(this.specialString.length() > this.remainingLength) {
+			System.out.println("Length of string exceeds password length.");
+			printNumberOfRemainingCharacters();
+			setSpecialString();
+		}
+		else if(this.specialString.equals("0")) {
+			this.specialString = "";
+			return;
+		}
+		else {
+			this.remainingLength -= this.specialString.length();
+		}
 	}
 	
 	private void setNumberOfCapitalLetters() {
