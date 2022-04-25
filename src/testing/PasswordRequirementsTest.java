@@ -50,9 +50,11 @@ public class PasswordRequirementsTest {
 		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
 		int numberOfNumbers = requirements.getNumberOfNumbers();
 		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
 		
 		assertEquals(0, length);
 		assertEquals(0, remainingLength);
+		assertEquals("", specialStringToTest);
 		assertEquals(0, numberOfCapitalLetters);
 		assertEquals(0, numberOfNumbers);
 		assertEquals(0, numberOfSpecialCharacters);
@@ -69,9 +71,11 @@ public class PasswordRequirementsTest {
 		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
 		int numberOfNumbers = requirements.getNumberOfNumbers();
 		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
 		
 		assertEquals(10, length);
 		assertEquals(0, remainingLength);
+		assertEquals("", specialStringToTest);
 		assertEquals(5, numberOfCapitalLetters);
 		assertEquals(3, numberOfNumbers);
 		assertEquals(2, numberOfSpecialCharacters);
@@ -88,9 +92,11 @@ public class PasswordRequirementsTest {
 		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
 		int numberOfNumbers = requirements.getNumberOfNumbers();
 		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
 		
 		assertEquals(10, length);
 		assertEquals(0, remainingLength);
+		assertEquals("", specialStringToTest);
 		assertEquals(5, numberOfCapitalLetters);
 		assertEquals(5, numberOfNumbers);
 		assertEquals(0, numberOfSpecialCharacters);
@@ -107,9 +113,11 @@ public class PasswordRequirementsTest {
 		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
 		int numberOfNumbers = requirements.getNumberOfNumbers();
 		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
 		
 		assertEquals(10, length);
 		assertEquals(5, remainingLength);
+		assertEquals("", specialStringToTest);
 		assertEquals(3, numberOfCapitalLetters);
 		assertEquals(2, numberOfNumbers);
 		assertEquals(0, numberOfSpecialCharacters);
@@ -151,6 +159,71 @@ public class PasswordRequirementsTest {
 		
 		assertEquals(5, numberOfRemainingCharacters);
 	}
+	
+	@Test
+	public void testPasswordRequirementsGivenSpecialString() {
+		setSystemIn(createInputStream("10 isthisten? 5 3 2"));
+		PasswordRequirements requirements = new PasswordRequirements();
+		requirements.setAllPasswordRequirements();
+		
+		int length = requirements.getLength();
+		int remainingLength = requirements.getRemainingLength();
+		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
+		int numberOfNumbers = requirements.getNumberOfNumbers();
+		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
+		
+		assertEquals(10, length);
+		assertEquals(0, remainingLength);
+		assertEquals("isthisten?", specialStringToTest);
+		assertEquals(0, numberOfCapitalLetters);
+		assertEquals(0, numberOfNumbers);
+		assertEquals(0, numberOfSpecialCharacters);
+	}
+	
+	@Test
+	public void testPasswordRequirementsGivenSpecialStringTooLong() {
+		setSystemIn(createInputStream("10 thishastoomanycharacters nottoomany 5 3 2"));
+		PasswordRequirements requirements = new PasswordRequirements();
+		requirements.setAllPasswordRequirements();
+		
+		int length = requirements.getLength();
+		int remainingLength = requirements.getRemainingLength();
+		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
+		int numberOfNumbers = requirements.getNumberOfNumbers();
+		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
+		
+		assertEquals(10, length);
+		assertEquals(0, remainingLength);
+		assertEquals("nottoomany", specialStringToTest);
+		assertEquals(0, numberOfCapitalLetters);
+		assertEquals(0, numberOfNumbers);
+		assertEquals(0, numberOfSpecialCharacters);
+	}
+	
+	@Test
+	public void testPasswordRequirementsGivenSpecialStringMixedWithRandomChars() {
+		setSystemIn(createInputStream("20 nottoomany 5 3 2"));
+		PasswordRequirements requirements = new PasswordRequirements();
+		requirements.setAllPasswordRequirements();
+		
+		int length = requirements.getLength();
+		int remainingLength = requirements.getRemainingLength();
+		int numberOfCapitalLetters = requirements.getNumberOfCapitalLetters();
+		int numberOfNumbers = requirements.getNumberOfNumbers();
+		int numberOfSpecialCharacters = requirements.getNumberOfSpecialCharacters();
+		String specialStringToTest = requirements.getSpecialString();
+		
+		assertEquals(20, length);
+		assertEquals(0, remainingLength);
+		assertEquals("nottoomany", specialStringToTest);
+		assertEquals(5, numberOfCapitalLetters);
+		assertEquals(3, numberOfNumbers);
+		assertEquals(2, numberOfSpecialCharacters);
+	}
+	
+	
 	
 	
 	@AfterAll
