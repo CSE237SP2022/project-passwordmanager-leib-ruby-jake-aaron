@@ -129,6 +129,7 @@ public class PasswordGenerator {
 			else {
 				password.insert(0, specialString);
 			}
+			password.setLength(requirements.getLength());
 		}
 	}
 	
