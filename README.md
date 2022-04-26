@@ -43,7 +43,17 @@ For the next iteration, we intend to complete:
 5. A PasswordStorageSystem should be able to handle multiple passwords for the same website, using username to differentiate
 6. A shell script should check if the compiled class files already exist so it does not recompile all the code every time the program is run
 
-At the end of this iteration, everything we have implemented is working. Instructions to run the code are below. 
+At the end of this iteration, everything we have implemented is working. Instructions to run the code are below.
+
+## Iteration 3
+
+In this iteration, we completed the following user stories:
+1. A PasswordGenerator should be able to take in words as input to be used in the password
+2. A PasswordRequirements should be able to ask a user if they want specific words to be part of their password and capture that input
+3. A PasswordEvaluator Class should be able to evaluate the strength of a password
+4. A user should be able to delete or change an existing password
+
+At the end of this iteration, everything we have implemented is working. Instructions to run the code are below.
 
 ## To run the program
 1. Clone the repository
