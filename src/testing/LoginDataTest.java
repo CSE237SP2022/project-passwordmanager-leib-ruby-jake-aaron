@@ -64,6 +64,15 @@ public class LoginDataTest {
 		assertEquals("username", login.getUsername());
 	}
 	
+	@Test
+	public void testLoginDataGivenAllInfoInConstructor() {
+		
+		LoginData login = new LoginData("key", "username", "password");
+		
+		assertEquals("key", login.getKey());
+		assertEquals("password", login.getPassword());
+		assertEquals("username", login.getUsername());
+	}
 	
 	
 	
