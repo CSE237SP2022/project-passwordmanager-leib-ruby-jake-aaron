@@ -1,6 +1,16 @@
 # Password Manager
 This collaborative project is a password manager, written entirely in Java. This is the final project for WUSTL CSE237. The manager allows user to generate passwords, store existing passwords, and access their passwords. Passwords are stored in a file called `storedPasswords.txt` that is created on the users' machine. This allows each user to have their own set of passwords and creates a persistent "database" for accessing passwords through the program at any time.
 
+## To run the program
+1. Clone the repository
+2. Navigate to the cloned repository
+3. Ensure that you have "execute" permissions for start_program.sh by running `ls -l`
+4. If you do not have exexute permissions for start_program.sh, run `chmod 744 start_program.sh`
+5. Start the program by running `./start_program.sh` in the command line
+
+## To run the program tests
+Files that test individual classes can be found in the `testing` package. You may also run `PasswordManagerTestSuite`, which runs all the tests at once for convenience.
+
 ## Iteration 1
 So far, we have completed the following stories: 
 1. A MenuSystem should be able to output an initial menu to the user, giving them options for what they can do with the program
@@ -54,10 +64,3 @@ In this iteration, we completed the following user stories:
 4. A user should be able to delete or change an existing password
 
 At the end of this iteration, everything we have implemented is working. Instructions to run the code are below.
-
-## To run the program
-1. Clone the repository
-2. Navigate to the cloned repository
-3. Ensure that you have "execute" permissions for start_program.sh by running `ls -l`
-4. If you do not have exexute permissions for start_program.sh, run `chmod 744 start_program.sh`
-5. Start the program by running `./start_program.sh` in the command line
